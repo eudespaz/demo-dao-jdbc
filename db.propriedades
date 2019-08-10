@@ -1,0 +1,4 @@
+user=eudes
+password=eudes
+dburl=jdbc:mysql://localhost:3306/domedaojdbc
+useSSL=false
