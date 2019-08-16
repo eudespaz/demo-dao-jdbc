@@ -27,6 +27,14 @@ public class Programa {
 			System.out.println(ven);
 			
 		}
+		
+		System.out.println();
+		System.out.println("TESTE = 3");
+		lista  = vendedordao.lista();
+		for (Vendedor ven : lista) {
+			System.out.println(ven);
+			
+		}
 
 	}
 
