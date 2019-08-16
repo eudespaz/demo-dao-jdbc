@@ -1,6 +1,7 @@
 package application;
 
-import java.util.Date;
+
+import java.util.List;
 
 import modelo.dao.DaoFabrica;
 import modelo.dao.Vendedordao;
@@ -13,12 +14,19 @@ public class Programa {
 		// TODO Auto-generated method stub
 		
 		
-		Vendedordao vendedordao = DaoFabrica.createVendadordao();
-		
-		Vendedor vendedor = vendedordao.find(1);
-		
-		
+		System.out.println("TESTE = 1");
+		Vendedordao vendedordao = DaoFabrica.createVendadordao();	
+		Vendedor vendedor = vendedordao.find(1);	
 		System.out.println(vendedor);
+		
+		System.out.println();
+		System.out.println("TESTE = 2");
+		Departamento departamento = new Departamento(2, null);
+		List<Vendedor> lista = vendedordao.findByDepartamento(departamento);
+		for (Vendedor ven : lista) {
+			System.out.println(ven);
+			
+		}
 
 	}
 
