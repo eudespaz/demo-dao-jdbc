@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.mysql.jdbc.Statement;
 
+import db.DB;
 import db.DbExcecao;
 import modelo.dao.Vendedordao;
 import modelo.entidades.Departamento;
@@ -91,7 +92,20 @@ public class VendedorDaoJDBC implements Vendedordao {
 
 	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("DELETE FROM vendedor WHERE id = ?");
+			
+			st.setInt(1, id);
+			
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DbExcecao(e.getMessage());
+		}
+		finally {
+			DB.getConnection();
+		}
 		
 	}
 

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import db.DbExcecao;
 import modelo.dao.DaoFabrica;
 import modelo.dao.Vendedordao;
 import modelo.entidades.Departamento;
@@ -24,13 +23,13 @@ public class Programa {
 
 		System.out.println("TESTE = 1");
 		Vendedordao vendedordao = DaoFabrica.createVendadordao();	
-		Vendedor vendedor = vendedordao.find(1);	
+		Vendedor vendedor = vendedordao.find(6);	
 		System.out.println(vendedor);
 		
 		System.out.println();
 		System.out.println("TESTE = 2");
-		Departamento departamento = new Departamento(2, null);
-		List<Vendedor> lista = vendedordao.findByDepartamento(departamento);
+		Departamento dep = new Departamento(2, null);
+		List<Vendedor> lista = vendedordao.findByDepartamento(dep);
 		for (Vendedor ven : lista) {
 			System.out.println(ven);
 			
@@ -43,7 +42,7 @@ public class Programa {
 			System.out.println(ven);
 			
 		}
-		/*
+		
 		System.out.println();
 		System.out.println("TESTE = 4, INSERT");
 		System.out.print("Nome: ");
@@ -54,10 +53,9 @@ public class Programa {
 		java.util.Date fdata = data.parse(entrada.next());
 		System.out.print("Salario: ");
 		Double salario = entrada.nextDouble();
-		
-		Vendedor vend = new Vendedor(null, nome, email, fdata, salario, departamento);
+		Vendedor vend = new Vendedor(null, nome, email, fdata, salario, dep);
 		vendedordao.insert(vend);
-		System.out.println("dados inseridos com Sucesso " + vend.getId()); */
+		System.out.println("dados inseridos com Sucesso " + vend.getId()); 
 		
 		System.out.println();
 		System.out.println("TESTE = 5, UPTADE");
@@ -66,10 +64,18 @@ public class Programa {
 		vendedor = vendedordao.find(entrada.nextInt());
 		entrada.nextLine();
 		System.out.print("Nome: ");
-		vendedor.setNome(entrada.nextLine());
+		String nome2 = entrada.nextLine();
+		vendedor.setNome(nome2);
 		vendedordao.update(vendedor);
 		System.out.println("Uptade completo " + vendedor.getNome());
-	
+		
+		System.out.println();
+		System.out.println("TESTE = 6, DELETE");
+		System.out.print("Digite ID: ");
+		int p = entrada.nextInt();
+		vendedordao.delete(p);
+		System.out.println("DELETADO " + p);
+
 		entrada.close();
 		
 		
