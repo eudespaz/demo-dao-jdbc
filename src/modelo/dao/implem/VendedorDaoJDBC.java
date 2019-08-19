@@ -66,8 +66,27 @@ public class VendedorDaoJDBC implements Vendedordao {
 
 	@Override
 	public void update(Vendedor vendedor) {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"UPDATE vendedor "
+					+ "SET nome = ?, email = ?, data = ?, salario = ?, departamentoid = ? "
+					+ "WHERE id = ? ");
+			
+			
+			st.setString(1, vendedor.getNome());
+			st.setString(2, vendedor.getEmail());
+			st.setDate(3, new java.sql.Date(vendedor.getData().getTime()));
+			st.setDouble(4, vendedor.getSalario());
+			st.setInt(5, vendedor.getDepartamento().getId());
+			st.setInt(6, vendedor.getId());
+			
+			st.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new DbExcecao(e.getMessage());
+		}
+	
 	}
 
 	@Override
@@ -130,7 +149,7 @@ public class VendedorDaoJDBC implements Vendedordao {
 					"SELECT vendedor.*,departamento.nome as depnome "
 					+ "FROM vendedor INNER JOIN departamento "
 					+ "ON vendedor.departamentoid = departamento.id "
-					+ "ORDER BY nome");
+					+ "ORDER BY id");
 		
 			rs = st.executeQuery();
 			
