@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.jdbc.Statement;
+
 import db.DbExcecao;
 import modelo.dao.Vendedordao;
 import modelo.entidades.Departamento;
@@ -25,7 +27,40 @@ public class VendedorDaoJDBC implements Vendedordao {
 
 	@Override
 	public void insert(Vendedor vendedor) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"INSERT INTO vendedor "
+					+ "(nome, email, data, salario, departamentoid) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, vendedor.getNome());
+			st.setString(2, vendedor.getEmail());
+			st.setDate(3, new java.sql.Date(vendedor.getData().getTime()));
+			st.setDouble(4, vendedor.getSalario());
+			st.setInt(5, vendedor.getDepartamento().getId());
+			
+			int conectar = st.executeUpdate();
+			
+			if (conectar > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					vendedor.setId(id);
+				}
+				
+			}
+			else {
+				throw new DbExcecao("Erro nenhuma linha foi afetada");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbExcecao(e.getMessage());
+		}
+		
+		
+		
 		
 	}
 
