@@ -23,7 +23,7 @@ public class Programa {
 
 		System.out.println("TESTE = 1");
 		Vendedordao vendedordao = DaoFabrica.createVendadordao();	
-		Vendedor vendedor = vendedordao.find(6);	
+		Vendedor vendedor = vendedordao.find(1);	
 		System.out.println(vendedor);
 		
 		System.out.println();
@@ -55,17 +55,17 @@ public class Programa {
 		Double salario = entrada.nextDouble();
 		Vendedor vend = new Vendedor(null, nome, email, fdata, salario, dep);
 		vendedordao.insert(vend);
-		System.out.println("dados inseridos com Sucesso " + vend.getId()); 
+		System.out.println("dados inseridos com Sucesso " + vend.getId()); 	
 		
 		System.out.println();
 		System.out.println("TESTE = 5, UPTADE");
-		
 		System.out.print("ID: ");
-		vendedor = vendedordao.find(entrada.nextInt());
+		int id = entrada.nextInt();
+		vendedor = vendedordao.find(id);
 		entrada.nextLine();
 		System.out.print("Nome: ");
-		String nome2 = entrada.nextLine();
-		vendedor.setNome(nome2);
+		nome = entrada.nextLine();
+		vendedor.setNome(nome);
 		vendedordao.update(vendedor);
 		System.out.println("Uptade completo " + vendedor.getNome());
 		
